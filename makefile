@@ -22,20 +22,21 @@
 # so do not use any implicit rules!
 #
 
-all : test
+all : libmylib.so.1
 
 clean :
-	rm *.o *.a *.so *.so.1 *.so.1.0 test
+	rm *.o *.so *.so.1 *.so.1.0 
 
-test : test.o libmylib.so.1
-	gcc -Wall -L. test.c -lmylib -o test
+# test : test.o libmylib.so.1
+# 	gcc -Wall -L. test.c -lmylib -o test
 #	gcc -o test test.o halve.o ;\
 #	chmod +x test ;\
-	export LD_LIBRARY_PATH=.
-	./test
+#	./test
 
 libmylib.so.1 : libmylib.so
-	ln -sf libmylib.so.1.0 libmylib.so.1
+	ln -sf libmylib.so.1.0 libmylib.so.1 ;\
+	export LD_LIBRARY_PATH=.
+
 
 libmylib.so : libmylib.so.1.0
 	ln -sf libmylib.so.1.0 libmylib.so
@@ -49,5 +50,5 @@ halve.o : halve.c halve.h
 	gcc -Wall -fPIC -c halve.c 
 
 
-test.o : test.c halve.h
-	gcc -c test.c
+# test.o : test.c halve.h
+#	gcc -c test.c
